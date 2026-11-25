@@ -1,21 +1,11 @@
-/**
- * @file main.cpp
- * @author Divyam Khatri , Radu Dimitrie Lecca
- * @brief ...
- * @version 0
- * @date
- */
+#include "mainwindow.h"
 
-#include <iostream>
+#include <QApplication>
 
-#include "assets/Environment/environment.h"
-
-using namespace std;
-
-int main()
+int main(int argc, char *argv[])
 {
-    Environment e;
-
-    cout << "Insert work here" << endl;
-    return 0;
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return QApplication::exec();
 }
