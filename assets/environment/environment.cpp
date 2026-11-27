@@ -10,8 +10,6 @@
 
 Environment::Environment(int x, int y)
 {
-
-
     for(int i=0;i<x; i++)
     {
         vector<TileNode> row;
@@ -25,6 +23,9 @@ Environment::Environment(int x, int y)
         _gameGrid.push_back(row);
     }
 
+}
+bool Environment::IsDayTime(){
+    return _isDaytime;
 }
 
 void Environment::ReceiveCommand(char c)

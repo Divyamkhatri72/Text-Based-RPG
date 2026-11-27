@@ -13,6 +13,8 @@ SOURCES += \
     assets/environment/environment.cpp \
     assets/environment/tilenode.cpp \
     assets/environment/nodelist.cpp \
+    boardsetup.cpp \
+    gamewidget.cpp \
     main.cpp \
     mainwindow.cpp \
 
@@ -24,10 +26,14 @@ HEADERS += \
     assets/environment/environment.h \
     assets/environment/tilenode.h \
     assets/environment/nodelist.h \
+    boardsetup.h \
+    gamewidget.h \
     mainwindow.h \
 
 
 FORMS += \
+    boardsetup.ui \
+    gamewidget.ui \
     mainwindow.ui
 
 # Default rules for deployment.
