@@ -31,6 +31,7 @@ public:
     float attackChance, defenceChance;
 
     void onRemove() override;
+    void setRaceStats();
     void updateModifier();
     void attacking();
     void defend();

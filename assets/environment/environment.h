@@ -28,7 +28,6 @@ private:
     int _y;
     int _nrOfMoves;
     bool _isDaytime;
-    Entity _player;
     vector<Entity> _weapons;
     vector<Entity> _enemies;
     vector<vector<TileNode>>_gameGrid;
