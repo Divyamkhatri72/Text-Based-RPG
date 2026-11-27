@@ -1,3 +1,3 @@
 #include "entity.h"
 
-Entity::Entity() {}
+Entity::~Entity() = default;

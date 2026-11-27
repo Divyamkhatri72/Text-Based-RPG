@@ -8,6 +8,8 @@ CONFIG += c++17
 
 SOURCES += \
     assets/entity/entity.cpp \
+    assets/entity/character.cpp \
+    assets/entity/item.cpp \
     assets/environment/environment.cpp \
     assets/environment/tilenode.cpp \
     assets/environment/nodelist.cpp \
@@ -19,6 +21,8 @@ SOURCES += \
 
 HEADERS += \
     assets/entity/entity.h \
+    assets/entity/character.h \
+    assets/entity/item.h \
     assets/environment/environment.h \
     assets/environment/tilenode.h \
     assets/environment/nodelist.h \
