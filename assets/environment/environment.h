@@ -28,8 +28,9 @@ public:
     void Rescale(int x,int y);
 
     bool *IsDayTime();
-    int X();
-    int Y();
+    void setGridSize();
+    int getLength();
+    int getWidth();
 private:
     int _x;
     int _y;
