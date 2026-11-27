@@ -64,5 +64,5 @@ Item::Item(ItemType type) : _type(type){
 }
 
 void Item::onRemove(){
-
+    //remove the item from the board
 }

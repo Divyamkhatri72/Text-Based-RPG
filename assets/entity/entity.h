@@ -6,8 +6,9 @@ class Entity{
         int positionX, positionY;
 
     public:
-        virtual void onRemove() = 0;
-        virtual ~Entity();
+        Entity();
+        void onRemove();
+        ~Entity();
 };
 
 #endif // ENTITY_H

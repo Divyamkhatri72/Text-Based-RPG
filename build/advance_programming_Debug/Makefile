@@ -53,18 +53,28 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../assets/entity/entity.cpp \
+		../../assets/entity/character.cpp \
+		../../assets/entity/item.cpp \
 		../../assets/environment/environment.cpp \
 		../../assets/environment/tilenode.cpp \
-		../../assets/environment/nodelist.cpp \
-		../../main.cpp \
-		../../mainwindow.cpp moc_mainwindow.cpp
+		../../assets/widgets/boardsetup.cpp \
+		../../assets/widgets/gamewidget.cpp \
+		../../assets/widgets/characterselect.cpp \
+		../../main.cpp moc_boardsetup.cpp \
+		moc_gamewidget.cpp \
+		moc_characterselect.cpp
 OBJECTS       = entity.o \
+		character.o \
+		item.o \
 		environment.o \
 		tilenode.o \
-		nodelist.o \
+		boardsetup.o \
+		gamewidget.o \
+		characterselect.o \
 		main.o \
-		mainwindow.o \
-		moc_mainwindow.o
+		moc_boardsetup.o \
+		moc_gamewidget.o \
+		moc_characterselect.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/linux.conf \
@@ -118,6 +128,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/default_pre.prf \
@@ -140,15 +151,21 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/lex.prf \
 		../../../../Text-Based-RPG.pro ../../assets/entity/entity.h \
+		../../assets/entity/character.h \
+		../../assets/entity/item.h \
 		../../assets/environment/environment.h \
 		../../assets/environment/tilenode.h \
-		../../assets/environment/nodelist.h \
-		../../mainwindow.h ../../assets/entity/entity.cpp \
+		../../assets/widgets/boardsetup.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/widgets/characterselect.h ../../assets/entity/entity.cpp \
+		../../assets/entity/character.cpp \
+		../../assets/entity/item.cpp \
 		../../assets/environment/environment.cpp \
 		../../assets/environment/tilenode.cpp \
-		../../assets/environment/nodelist.cpp \
-		../../main.cpp \
-		../../mainwindow.cpp
+		../../assets/widgets/boardsetup.cpp \
+		../../assets/widgets/gamewidget.cpp \
+		../../assets/widgets/characterselect.cpp \
+		../../main.cpp
 QMAKE_TARGET  = Text-Based-RPG
 DESTDIR       = 
 TARGET        = Text-Based-RPG
@@ -157,7 +174,7 @@ TARGET        = Text-Based-RPG
 first: all
 ####### Build rules
 
-Text-Based-RPG: ui_mainwindow.h $(OBJECTS)  
+Text-Based-RPG: ui_boardsetup.h ui_gamewidget.h ui_characterselect.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../Text-Based-RPG.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
@@ -213,6 +230,7 @@ Makefile: ../../Text-Based-RPG.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/default_pre.prf \
@@ -292,6 +310,7 @@ Makefile: ../../Text-Based-RPG.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/default_pre.prf:
@@ -332,9 +351,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../assets/entity/entity.h ../../assets/environment/environment.h ../../assets/environment/tilenode.h ../../assets/environment/nodelist.h ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../assets/entity/entity.cpp ../../assets/environment/environment.cpp ../../assets/environment/tilenode.cpp ../../assets/environment/nodelist.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../assets/entity/entity.h ../../assets/entity/character.h ../../assets/entity/item.h ../../assets/environment/environment.h ../../assets/environment/tilenode.h ../../assets/widgets/boardsetup.h ../../assets/widgets/gamewidget.h ../../assets/widgets/characterselect.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../assets/entity/entity.cpp ../../assets/entity/character.cpp ../../assets/entity/item.cpp ../../assets/environment/environment.cpp ../../assets/environment/tilenode.cpp ../../assets/widgets/boardsetup.cpp ../../assets/widgets/gamewidget.cpp ../../assets/widgets/characterselect.cpp ../../main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../assets/widgets/boardsetup.ui ../../assets/widgets/gamewidget.ui ../../assets/widgets/characterselect.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -366,24 +385,60 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_boardsetup.cpp moc_gamewidget.cpp moc_characterselect.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../../mainwindow.h \
+	-$(DEL_FILE) moc_boardsetup.cpp moc_gamewidget.cpp moc_characterselect.cpp
+moc_boardsetup.cpp: ../../assets/widgets/boardsetup.h \
+		../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/rexnar/Text-Based-RPG/build/advance_programming_Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/rexnar/Text-Based-RPG -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/16 -I/usr/include/x86_64-linux-gnu/c++/16 -I/usr/include/c++/16/backward -I/usr/lib/gcc/x86_64-linux-gnu/16/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/rexnar/Text-Based-RPG/build/advance_programming_Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/rexnar/Text-Based-RPG -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/16 -I/usr/include/x86_64-linux-gnu/c++/16 -I/usr/include/c++/16/backward -I/usr/lib/gcc/x86_64-linux-gnu/16/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../assets/widgets/boardsetup.h -o moc_boardsetup.cpp
+
+moc_gamewidget.cpp: ../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/rexnar/Text-Based-RPG/build/advance_programming_Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/rexnar/Text-Based-RPG -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/16 -I/usr/include/x86_64-linux-gnu/c++/16 -I/usr/include/c++/16/backward -I/usr/lib/gcc/x86_64-linux-gnu/16/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../assets/widgets/gamewidget.h -o moc_gamewidget.cpp
+
+moc_characterselect.cpp: ../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/rexnar/Text-Based-RPG/build/advance_programming_Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/rexnar/Text-Based-RPG -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/16 -I/usr/include/x86_64-linux-gnu/c++/16 -I/usr/include/c++/16/backward -I/usr/lib/gcc/x86_64-linux-gnu/16/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../assets/widgets/characterselect.h -o moc_characterselect.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_boardsetup.h ui_gamewidget.h ui_characterselect.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
-ui_mainwindow.h: ../../mainwindow.ui \
+	-$(DEL_FILE) ui_boardsetup.h ui_gamewidget.h ui_characterselect.h
+ui_boardsetup.h: ../../assets/widgets/boardsetup.ui \
 		/usr/lib/qt6/libexec/uic
-	/usr/lib/qt6/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
+	/usr/lib/qt6/libexec/uic ../../assets/widgets/boardsetup.ui -o ui_boardsetup.h
+
+ui_gamewidget.h: ../../assets/widgets/gamewidget.ui \
+		/usr/lib/qt6/libexec/uic
+	/usr/lib/qt6/libexec/uic ../../assets/widgets/gamewidget.ui -o ui_gamewidget.h
+
+ui_characterselect.h: ../../assets/widgets/characterselect.ui \
+		/usr/lib/qt6/libexec/uic
+	/usr/lib/qt6/libexec/uic ../../assets/widgets/characterselect.ui -o ui_characterselect.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -398,8 +453,19 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 entity.o: ../../assets/entity/entity.cpp ../../assets/entity/entity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o entity.o ../../assets/entity/entity.cpp
 
-environment.o: ../../assets/environment/environment.cpp ../../assets/environment/environment.h \
+character.o: ../../assets/entity/character.cpp ../../assets/entity/character.h \
 		../../assets/entity/entity.h \
+		../../assets/entity/item.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o character.o ../../assets/entity/character.cpp
+
+item.o: ../../assets/entity/item.cpp ../../assets/entity/item.h \
+		../../assets/entity/entity.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o item.o ../../assets/entity/item.cpp
+
+environment.o: ../../assets/environment/environment.cpp ../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o environment.o ../../assets/environment/environment.cpp
 
@@ -407,22 +473,54 @@ tilenode.o: ../../assets/environment/tilenode.cpp ../../assets/environment/tilen
 		../../assets/entity/entity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tilenode.o ../../assets/environment/tilenode.cpp
 
-nodelist.o: ../../assets/environment/nodelist.cpp ../../assets/environment/nodelist.h \
-		../../assets/entity/entity.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o nodelist.o ../../assets/environment/nodelist.cpp
+boardsetup.o: ../../assets/widgets/boardsetup.cpp ../../assets/widgets/boardsetup.h \
+		../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		ui_boardsetup.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o boardsetup.o ../../assets/widgets/boardsetup.cpp
+
+gamewidget.o: ../../assets/widgets/gamewidget.cpp ../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		ui_gamewidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamewidget.o ../../assets/widgets/gamewidget.cpp
+
+characterselect.o: ../../assets/widgets/characterselect.cpp ../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		ui_characterselect.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o characterselect.o ../../assets/widgets/characterselect.cpp
 
 main.o: ../../main.cpp ../../assets/environment/environment.h \
+		../../assets/entity/character.h \
 		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h \
-		../../mainwindow.h
+		../../assets/widgets/boardsetup.h \
+		../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
-mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
-		ui_mainwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
+moc_boardsetup.o: moc_boardsetup.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_boardsetup.o moc_boardsetup.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+moc_gamewidget.o: moc_gamewidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gamewidget.o moc_gamewidget.cpp
+
+moc_characterselect.o: moc_characterselect.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_characterselect.o moc_characterselect.cpp
 
 ####### Install
 

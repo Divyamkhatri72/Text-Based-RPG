@@ -6,7 +6,8 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../gamewidget.h"
+#include "../../assets/widgets/gamewidget.h"
+#include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
