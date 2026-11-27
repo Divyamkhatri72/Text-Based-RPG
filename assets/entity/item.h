@@ -3,29 +3,53 @@
 
 #include "entity.h"
 
-enum class ItemType{ weapon, armour, shield, ring };
+#include <string>
 
-enum class WeaponType{ sword, dagger };
-enum class ArmourType{ plate, leather };
-enum class ShieldType{ large, small };
-enum class RingType{ life, strength };
+enum class ItemCategory{
+    Weapon,
+    Armour,
+    Shield,
+    Ring
+};
+
+enum class ItemType{
+    Sword,
+    Dagger,
+    PlateArmour,
+    LeatherArmour,
+    LargeShield,
+    SmallShield,
+    RingOfLife,
+    RingOfStrength
+};
 
 class Item : public Entity{
 private:
     ItemType _type;
-    int _subtype;
+    ItemCategory _category;
+    std::string _name;
     int _weight{};
-    int _modifier{};
+
+    // Changes applied to the owner's stats (negative = decrease)
+    int _attackMod{};
+    int _defenceMod{};
+    int _healthMod{};
+    int _strengthMod{};
 
 public:
-    Item(ItemType type, int subtype);
+    explicit Item(ItemType type);
 
     ItemType getType() const { return _type; }
-    int getSubtype() const { return _subtype; }
-    int getModifier() const { return _modifier; }
+    ItemCategory getCategory() const { return _category; }
+    const std::string& getName() const { return _name; }
+    int getWeight() const { return _weight; }
+
+    int getAttackMod() const { return _attackMod; }
+    int getDefenceMod() const { return _defenceMod; }
+    int getHealthMod() const { return _healthMod; }
+    int getStrengthMod() const { return _strengthMod; }
 
     void onRemove() override;
-    void effect();
 };
 
 #endif // ITEM_H
