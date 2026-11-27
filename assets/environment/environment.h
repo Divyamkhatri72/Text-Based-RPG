@@ -20,8 +20,9 @@ using namespace std;
 class Environment
 {
 public:
-    Environment(int x, int y);
+    explicit Environment(int x, int y);
     void ReceiveCommand(char c);
+    bool IsDayTime();
 private:
     int _x;
     int _y;
@@ -31,8 +32,6 @@ private:
     vector<Entity> _weapons;
     vector<Entity> _enemies;
     vector<vector<TileNode>>_gameGrid;
-
-
 };
 
 #endif // ENVIRONMENT_H
