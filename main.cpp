@@ -3,6 +3,7 @@
 #include "assets/widgets/characterselect.h"
 #include "assets/widgets/gamewidget.h"
 #include <QApplication>
+#include <ctime>
 
 
 int main(int argc, char *argv[])

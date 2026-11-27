@@ -8,6 +8,7 @@
 using namespace std;
 
 class Environment;
+class Player;
 
 enum class Race{
     Human,
@@ -30,21 +31,26 @@ public:
     explicit Character(Race _race, bool isDay);
     int attack, defence, health, strength;
     float attackChance, defenceChance;
-    void onRemove();
+
+    void onRemove();                        //overrides the onRemove function of the entity class
     void setRaceStats();
     void updateModifier();
-    void attacking();
-    void defend();
-    void defeat();
-    void showStats();
+    void attacking(Character& enemy);
+    void defend(Character& enemy);
+    void defeat(Player& player);
 };
 
 class Player : public Character{
 public:
     Player();
     void onRemove();
-    void pickUp();
-    void move();
+    void pickUp(Item item);
+    void move(int direction);
+    void victory(Character& enemy);
+    void defeat();
+
+private:
+    int _gold;
 };
 
 #endif // CHARACTER_H
