@@ -16,7 +16,7 @@ class BoardSetup : public QWidget
 
 public:
     explicit BoardSetup(QWidget *parent = nullptr);
-    BoardSetup(QWidget *parent = nullptr,CharacterSelect *c=nullptr);
+    BoardSetup(QWidget *parent = nullptr,CharacterSelect *c=nullptr, Environment *e=nullptr);
     ~BoardSetup();
 
 protected:
@@ -29,6 +29,7 @@ private:
     QLineEdit *_yInput;
     QPushButton *_nextBttn;
     CharacterSelect *_ch;
+    Environment *_env;
 };
 
 #endif // BOARDSETUP_H

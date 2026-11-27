@@ -2,10 +2,11 @@
 #include "qevent.h"
 #include "ui_characterselect.h"
 
-CharacterSelect::CharacterSelect(QWidget *parent,GameWidget *g)
+CharacterSelect::CharacterSelect(QWidget *parent,GameWidget *g, Player *p)
     : QWidget(parent)
     , ui(new Ui::CharacterSelect)
 {
+    _p=p;
     _g=g;
 
     _raceSelect=new QComboBox(this);
@@ -20,12 +21,17 @@ CharacterSelect::CharacterSelect(QWidget *parent,GameWidget *g)
     connect(_nextBttn,&QPushButton::pressed,this,&CharacterSelect::Start);
     _nextBttn->move(10,160);
 
+    _name=new QLineEdit(this);
+
     ui->setupUi(this);
 }
 
 void CharacterSelect::Start()
 {
     qDebug()<<"Clicking works";
+
+
+
     _g->show();
     this->close();
 
