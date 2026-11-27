@@ -1,6 +1,10 @@
 #include "gamewidget.h"
 #include "qevent.h"
+#include "qlabel.h"
 #include "ui_gamewidget.h"
+
+
+
 
 GameWidget::GameWidget(QWidget *parent,Environment *e)
     : QWidget(parent)
@@ -41,7 +45,8 @@ void GameWidget::ResetBoard()
     {
         for(int j=0;j<5;j++)
         {
-            _boardGrid->addWidget(new QFrame(),i,j,1,1,Qt::AlignJustify);
+            _boardGrid->addWidget(new QLabel("help"),i,j,1,1,Qt::AlignLeft);
+
         }
     }
 }

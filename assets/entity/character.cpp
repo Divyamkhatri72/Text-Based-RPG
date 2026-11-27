@@ -1,4 +1,6 @@
 #include "character.h"
+#include <random>
+#include <QKeyEvent>
 
 Character::Character(Race race, bool isDay)
 {
@@ -89,8 +91,72 @@ void Character::onRemove()
 
 }
 
+void Character::defend(Character& enemy){
+    mt19937 mt(time(0));
+    int roll;
+    bool success;
 
-Player::Player()
- :Character(Race::Human,true)
-{
+    roll = mt()%12;    //it is 12 because that's the lcm of 2,3 and 4 which are the denominator for defence chance making calculations easier
+
+    success = roll < 12*_DefenceChance;
+
+    if(success){
+        switch(_race){
+        case Race::Human:
+            break;
+
+        case Race::Elf:
+            health++;
+            break;
+
+        case Race::Dwarf:
+            break;
+
+        case Race::Hobbit:
+            health -= mt()%6;
+            break;
+
+        case Race::Orc:
+            int damage;
+            if(_isDay){
+                damage = enemy.attack - defence;
+                damage /=4;
+                health -= damage;
+            }else{
+                health++;
+            }
+            break;
+
+        }
+    }else{
+        int damage;
+        damage = enemy.attack - defence;            //note that attack and defence are calculated by taking items into account
+        health -= damage;
+    }
+
+}
+
+void Character::attacking(Character& enemy){
+    mt19937 mt(time(0));
+    int roll{};
+    bool success;
+
+    roll = mt()%12;
+    success = roll < 12*attackChance;
+
+    if(success){
+        enemy.defend(*this);
+    }
+}
+
+void Character::defeat(Player& player){
+    player.victory(*this);
+}
+
+void Player::move(int direction){
+    switch(direction){
+    case Qt::Key_Up:
+        positionY++;
+
+    }
 }

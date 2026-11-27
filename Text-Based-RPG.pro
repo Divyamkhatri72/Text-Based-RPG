@@ -11,7 +11,7 @@ SOURCES += \
     assets/entity/character.cpp \
     assets/entity/item.cpp \
     assets/environment/environment.cpp \
-    assets/environment/tilenode.cpp \
+    assets/environment/tilelist.cpp \
     assets/widgets/boardsetup.cpp \
     assets/widgets/gamewidget.cpp \
     assets/widgets/characterselect.cpp \
@@ -23,7 +23,7 @@ HEADERS += \
     assets/entity/character.h \
     assets/entity/item.h \
     assets/environment/environment.h \
-    assets/environment/tilenode.h \
+    assets/environment/tilelist.h \
     assets/widgets/boardsetup.h \
     assets/widgets/gamewidget.h \
     assets/widgets/characterselect.h
