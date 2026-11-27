@@ -16,16 +16,17 @@ class GameWidget : public QWidget
 
 public:
     explicit GameWidget(QWidget *parent = nullptr);
-    GameWidget(QWidget *parent=nullptr,Environment *e=nullptr);
+    GameWidget(QWidget *parent=nullptr,shared_ptr<Environment> e=nullptr,shared_ptr<Player> p=nullptr);
     ~GameWidget();
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void ResetBoard();
+
 private:
     Ui::GameWidget *ui;
-    Environment *_env;
     QGridLayout *_boardGrid;
     QLineEdit *_command;
+    shared_ptr<Environment> _env;
 };
 
 #endif // GAMEWIDGET_H

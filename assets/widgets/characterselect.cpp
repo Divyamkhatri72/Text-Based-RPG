@@ -2,12 +2,16 @@
 #include "qevent.h"
 #include "ui_characterselect.h"
 
-CharacterSelect::CharacterSelect(QWidget *parent,GameWidget *g, Player *p)
+CharacterSelect::CharacterSelect(QWidget *parent,BoardSetup *b, shared_ptr<Player> p)
     : QWidget(parent)
     , ui(new Ui::CharacterSelect)
 {
     _p=p;
-    _g=g;
+    _b=b;
+
+    _name=new QLineEdit(this);
+
+    _name->move(10,100);
 
     _raceSelect=new QComboBox(this);
 
@@ -17,32 +21,32 @@ CharacterSelect::CharacterSelect(QWidget *parent,GameWidget *g, Player *p)
     _raceSelect->addItem("Hobbit");
     _raceSelect->addItem("Orc");
 
+    _raceSelect->move(10,130);
+
     _nextBttn=new QPushButton(this);
     connect(_nextBttn,&QPushButton::pressed,this,&CharacterSelect::Start);
     _nextBttn->move(10,160);
 
-    _name=new QLineEdit(this);
+
 
     ui->setupUi(this);
 }
 
 void CharacterSelect::Start()
 {
-    qDebug()<<"Clicking works";
-
-
-
-    _g->show();
+    _b->show();
     this->close();
 
 }
 
 void CharacterSelect::closeEvent(QCloseEvent *event)
-{
-event->accept();
-}
+{ event->accept(); }
 
 CharacterSelect::~CharacterSelect()
 {
     delete ui;
+    delete _b;
+    delete _raceSelect;
+    delete _name;
+    delete _nextBttn;
 }

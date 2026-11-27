@@ -1,7 +1,8 @@
 #ifndef CHARACTERSELECT_H
 #define CHARACTERSELECT_H
 
-#include "assets/widgets/gamewidget.h"
+#include "assets/entity/character.h"
+#include "assets/widgets/boardsetup.h"
 #include "qpushbutton.h"
 #include <QWidget>
 #include <QComboBox>
@@ -16,7 +17,7 @@ class CharacterSelect : public QWidget
 
 public:
     explicit CharacterSelect(QWidget *parent = nullptr);
-    CharacterSelect(QWidget *parent = nullptr,GameWidget *g=nullptr, Player *p=nullptr);
+    CharacterSelect(QWidget *parent = nullptr,BoardSetup *b=nullptr, shared_ptr<Player> p=nullptr);
     ~CharacterSelect();
 
 protected:
@@ -25,15 +26,12 @@ protected:
 
 private:
     Ui::CharacterSelect *ui;
-    GameWidget * _g;
-
+    BoardSetup * _b;
     QComboBox *_raceSelect;
-
     QLineEdit *_name;
-
     QPushButton *_nextBttn;
 
-    Player *_p;
+    shared_ptr<Player> _p;
 
 };
 

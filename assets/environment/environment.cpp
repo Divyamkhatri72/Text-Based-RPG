@@ -7,57 +7,15 @@
  */
 #include "assets/environment/environment.h"
 #include "assets/environment/tilelist.h"
+#include <random>
 
 
-Environment::Environment(int x, int y,Player p)
+Environment::Environment(shared_ptr<Player> p)
 {
-
-    mt19937 e{static_cast<mt19937>(_rnd())};
-    uniform_int_distribution<int> entityType{0, 2};
-
-    uniform_int_distribution<int> entityVariation{0, 5};
-
-
-    for(int i=0;i<x; i++)
-    {
-        TileList t;
-        for( int j=0;j<y;j++)
-        {
-            /// add random enemies/ weapons on the field
-            ///
-            if(i==x/2 && j==y/2)
-                t.Add(_player);
-            else
-                switch (entityType(e)) {
-                case 0:
-                    ///add empty node
-                    t.Add(make_shared<Entity>(_empty));
-                    break;
-
-                case 1:
-                    //add item
-                    t.Add(make_shared<Item>(*new Item(ItemType::Dagger)));
-                    break;
-
-                case 2:
-                    t.Add(make_shared<Entity>(*new Character(Race::Hobbit,true)));
-                    break;
-
-                default:
-                    break;
-                }
-        }
-        _gameGrid.push_back(t);
-    }
+    _player=p;
 }
 bool *Environment::IsDayTime(){
     return &_isDaytime;
-}
-
-void Environment::Rescale(int x, int y){
-
-
-
 }
 
 void Environment::ReceiveCommand(char c)
@@ -105,10 +63,52 @@ void Environment::ReceiveCommand(char c)
     }
 }
 
-int Environment::X(){
-    return _x;
+void Environment::setGridSize(int x, int y)
+{
+    random_device _rnd;
+    mt19937 e{static_cast<mt19937>(_rnd())};
+    uniform_int_distribution<int> entityType{0, 2};
+    uniform_int_distribution<int> entityVariation{0, 5};
+    for(int i=0;i<x; i++)
+    {
+        TileList t;
+        for( int j=0;j<y;j++)
+        {
+            /// add random enemies/ weapons on the field
+            ///
+                switch (entityType(e)) {
+                case 0:
+                    ///add empty node
+                    t.Add(make_shared<Entity>(_empty));
+                    break;
+
+                case 1:
+                    //add item
+                    t.Add(make_shared<Item>(*new Item(ItemType::Dagger)));
+                    break;
+
+                case 2:
+                    t.Add(make_shared<Character>(*new Character(Race::Hobbit,make_shared<bool>(_isDaytime))));
+                    break;
+
+                default:
+                    break;
+                }
+        }
+        _gameGrid.push_back(t);
+    }
+
 }
 
-int Environment::Y(){
-    return _y;
+void Environment::PlacePlayer(shared_ptr<Player> p)
+{
+
+}
+
+int Environment::Width(){
+    return _width;
+}
+
+int Environment::Length(){
+    return _height;
 }

@@ -1,7 +1,7 @@
 #ifndef BOARDSETUP_H
 #define BOARDSETUP_H
 
-#include "assets/widgets/characterselect.h"
+#include "assets/widgets/gamewidget.h"
 #include "qlineedit.h"
 #include <QWidget>
 #include <QPushButton>
@@ -16,7 +16,7 @@ class BoardSetup : public QWidget
 
 public:
     explicit BoardSetup(QWidget *parent = nullptr);
-    BoardSetup(QWidget *parent = nullptr,CharacterSelect *c=nullptr, Environment *e=nullptr);
+    BoardSetup(QWidget *parent = nullptr,GameWidget *g=nullptr, shared_ptr<Environment> e=nullptr);
     ~BoardSetup();
 
 protected:
@@ -28,8 +28,8 @@ private:
     QLineEdit *_xInput;
     QLineEdit *_yInput;
     QPushButton *_nextBttn;
-    CharacterSelect *_ch;
-    Environment *_env;
+    GameWidget * _g;
+    shared_ptr<Environment> _env;
 };
 
 #endif // BOARDSETUP_H

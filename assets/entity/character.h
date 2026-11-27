@@ -3,6 +3,7 @@
 
 #include "entity.h"
 #include "item.h"
+#include <memory>
 #include <vector>
 
 using namespace std;
@@ -21,14 +22,14 @@ enum class Race{
 class Character : virtual public Entity{
 protected:
     Race _race;
-    bool _isDay;
+    shared_ptr<bool> _isDay;
 private:
     int _Attack, _Defence, _Health, _Strength;
     float _AttackChance, _DefenceChance;
     vector<Item> inventory;
 
 public:
-    explicit Character(Race _race, bool isDay);
+    explicit Character(Race _rac=Race::Human, shared_ptr<bool> isDay=nullptr);
     int attack, defence, health, strength;
     float attackChance, defenceChance;
 
@@ -42,7 +43,7 @@ public:
 
 class Player : public Character{
 public:
-    Player();
+    Player(Race _race=Race::Human, string name="");
     void onRemove();
     void pickUp(Item item);
     void move(int direction);
@@ -51,6 +52,7 @@ public:
 
 private:
     int _gold;
+    string _name;
 };
 
 #endif // CHARACTER_H

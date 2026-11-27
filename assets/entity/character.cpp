@@ -2,7 +2,7 @@
 #include <random>
 #include <QKeyEvent>
 
-Character::Character(Race race, bool isDay)
+Character::Character(Race race, shared_ptr<bool> isDay)
 {
     _race=race;
     _isDay=isDay;
@@ -153,10 +153,19 @@ void Character::defeat(Player& player){
     player.victory(*this);
 }
 
+Player::Player(Race r,string n): Character(r)
+{
+    _name=n;
+}
+
 void Player::move(int direction){
     switch(direction){
     case Qt::Key_Up:
         positionY++;
 
     }
+}
+
+void Player::victory(Character& enemy){
+
 }

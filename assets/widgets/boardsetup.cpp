@@ -4,12 +4,12 @@
 #include <QIntValidator>
 #include <QDebug>
 
-BoardSetup::BoardSetup(QWidget *parent,CharacterSelect *c,Environment *e)
+BoardSetup::BoardSetup(QWidget *parent, GameWidget *g, shared_ptr<Environment> e)
     : QWidget(parent)
     , ui(new Ui::BoardSetup)
 {
     _env=e;
-    _ch=c;
+    _g=g;
 
     _xInput = new QLineEdit(this);
     _xInput->move(10,90);
@@ -34,8 +34,9 @@ void BoardSetup::Next(){
 
     if(_xInput->text().toInt()>0 && _yInput->text().toInt()>0)
     {
-        _env->Rescale(_xInput->text().toInt(),_yInput->text().toInt());
-        _ch->show();
+        _env->setGridSize(_xInput->text().toInt(),_yInput->text().toInt());
+        qDebug()<<_env->Width();
+        _g->show();
         this->close();
     }
 }
@@ -48,4 +49,7 @@ void BoardSetup::closeEvent(QCloseEvent *event)
 BoardSetup::~BoardSetup()
 {
     delete ui;
+    delete _xInput;
+    delete _yInput;
+    delete _nextBttn;
 }

@@ -4,18 +4,20 @@
 #include "assets/widgets/gamewidget.h"
 #include <QApplication>
 #include <ctime>
+#include <memory>
+
 
 
 int main(int argc, char *argv[])
 {
     Player p;
-    Environment e{3,3,&p};
+    Environment e;
     QApplication a(argc, argv);
 
-    GameWidget g{nullptr,&e};
-    CharacterSelect c{nullptr,&g,&p};
-    BoardSetup b{nullptr,&c,&e};
+    GameWidget g{nullptr,nullptr,nullptr};
+    BoardSetup b{nullptr,&g,make_shared<Environment>(e)};
+    CharacterSelect c{nullptr,&b,make_shared<Player>(p)};
 
-    b.show();
+    c.show();
     return QApplication::exec();
 }

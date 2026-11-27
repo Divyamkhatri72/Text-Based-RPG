@@ -3,14 +3,13 @@
 #include "qlabel.h"
 #include "ui_gamewidget.h"
 
-
-
-
-GameWidget::GameWidget(QWidget *parent,Environment *e)
+GameWidget::GameWidget(QWidget *parent, shared_ptr<Environment> e, shared_ptr<Player> p)
     : QWidget(parent)
     , ui(new Ui::GameWidget)
 {
     _env=e;
+
+    _env->PlacePlayer(p);
 
     _boardGrid=new QGridLayout(this);
     ResetBoard();
@@ -21,21 +20,13 @@ GameWidget::GameWidget(QWidget *parent,Environment *e)
     ui->setupUi(this);
 }
 
-
-
 void GameWidget::keyPressEvent(QKeyEvent *event)
 {
     if( event->text()=='\r')
     {
         _env->ReceiveCommand(_command->text().at(0).toLatin1());
-         qDebug()<<"Clicking works"<<_command->text().at(0);
-
         _command->setText("");
-
-
-        //refresh menu or sth here
-
-
+        ResetBoard();
     }
 }
 
@@ -46,7 +37,6 @@ void GameWidget::ResetBoard()
         for(int j=0;j<5;j++)
         {
             _boardGrid->addWidget(new QLabel("help"),i,j,1,1,Qt::AlignLeft);
-
         }
     }
 }
@@ -54,4 +44,6 @@ void GameWidget::ResetBoard()
 GameWidget::~GameWidget()
 {
     delete ui;
+    delete _boardGrid;
+    delete _command;
 }
