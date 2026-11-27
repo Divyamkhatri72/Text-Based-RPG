@@ -29,7 +29,7 @@ private:
     vector<Item> inventory;
 
 public:
-    explicit Character(Race _rac=Race::Human, shared_ptr<bool> isDay=nullptr);
+    explicit Character(Race _race=Race::Human, shared_ptr<bool> isDay=nullptr);
     int attack, defence, health, strength;
     float attackChance, defenceChance;
 
