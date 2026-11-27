@@ -12,11 +12,9 @@ SOURCES += \
     assets/entity/item.cpp \
     assets/environment/environment.cpp \
     assets/environment/tilenode.cpp \
-    assets/environment/nodelist.cpp \
-    boardsetup.cpp \
-    gamewidget.cpp \
+    assets/widgets/boardsetup.cpp \
+    assets/widgets/gamewidget.cpp \
     main.cpp \
-    mainwindow.cpp \
 
 
 HEADERS += \
@@ -25,16 +23,13 @@ HEADERS += \
     assets/entity/item.h \
     assets/environment/environment.h \
     assets/environment/tilenode.h \
-    assets/environment/nodelist.h \
-    boardsetup.h \
-    gamewidget.h \
-    mainwindow.h \
+    assets/widgets/boardsetup.h \
+    assets/widgets/gamewidget.h \
 
 
 FORMS += \
-    boardsetup.ui \
-    gamewidget.ui \
-    mainwindow.ui
+    assets/widgets/boardsetup.ui \
+    assets/widgets/gamewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

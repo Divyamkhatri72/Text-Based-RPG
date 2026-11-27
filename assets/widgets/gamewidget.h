@@ -14,11 +14,14 @@ class GameWidget : public QWidget
 
 public:
     explicit GameWidget(QWidget *parent = nullptr);
+    GameWidget(QWidget *parent=nullptr,Environment *e=nullptr);
+    void ResetBoard();
     ~GameWidget();
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 private:
     Ui::GameWidget *ui;
+    Environment *_env;
 };
 
 #endif // GAMEWIDGET_H

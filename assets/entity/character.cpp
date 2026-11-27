@@ -1,9 +1,10 @@
 #include "character.h"
-#include "assets/environment/environment.h"
-#include <iostream>
 
-Character::Character(Race race, Environment& environment)
-    : _race(race), _environment(&environment){
+Character::Character(Race race, bool isDay)
+{
+    _race=race;
+    _isDay=isDay;
+
     updateModifier();
 }
 
@@ -46,7 +47,7 @@ void Character::setRaceStats(){
         break;
 
     case Race::Orc:
-        if(_environment->returnTime()){
+        if(_isDay){
             _Attack = 25;
             _AttackChance = 1.0f/4.0f;
             _Defence = 10;
@@ -81,4 +82,15 @@ void Character::updateModifier(){
     }
 
     if(health < 1) health = 1;   //Note: a ring shouldn't kill the character
+}
+
+void Character::onRemove()
+{
+
+}
+
+
+Player::Player()
+ :Character(Race::Human,true)
+{
 }

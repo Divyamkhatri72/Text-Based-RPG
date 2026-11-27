@@ -8,8 +8,9 @@
 #include "assets/environment/environment.h"
 
 
-Environment::Environment(int x, int y)
+Environment::Environment(int x, int y,Player *p)
 {
+    _player=p;
     for(int i=0;i<x; i++)
     {
         vector<TileNode> row;
@@ -24,8 +25,8 @@ Environment::Environment(int x, int y)
     }
 
 }
-bool Environment::IsDayTime(){
-    return _isDaytime;
+bool *Environment::IsDayTime(){
+    return &_isDaytime;
 }
 
 void Environment::ReceiveCommand(char c)

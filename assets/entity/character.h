@@ -17,20 +17,21 @@ enum class Race{
     Orc
 };
 
-class Character : public Entity{
-private:
+class Character : virtual public Entity{
+protected:
     Race _race;
-
+    bool _isDay;
+private:
     int _Attack, _Defence, _Health, _Strength;
     float _AttackChance, _DefenceChance;
     vector<Item> inventory;
 
 public:
-    Character(Race _race, Environment& environment);
+    explicit Character(Race _race, bool isDay);
     int attack, defence, health, strength;
     float attackChance, defenceChance;
-
-    void onRemove() override;
+    void onRemove();
+    void setRaceStats();
     void updateModifier();
     void attacking();
     void defend();
@@ -40,6 +41,8 @@ public:
 
 class Player : public Character{
 public:
+    Player();
+    void onRemove();
     void pickUp();
     void move();
 };

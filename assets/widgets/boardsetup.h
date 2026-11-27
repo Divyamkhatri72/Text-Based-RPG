@@ -16,7 +16,7 @@ class BoardSetup : public QWidget
 
 public:
     explicit BoardSetup(QWidget *parent = nullptr);
-    BoardSetup(QWidget *parent = nullptr,GameWidget *g=new GameWidget());
+    BoardSetup(QWidget *parent = nullptr,GameWidget *g=nullptr);
     ~BoardSetup();
 protected:
     void StartGame();

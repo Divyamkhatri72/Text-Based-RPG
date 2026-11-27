@@ -1,12 +1,12 @@
 #include "gamewidget.h"
-#include "assets/environment/environment.h"
 #include "qevent.h"
 #include "ui_gamewidget.h"
 
-GameWidget::GameWidget(QWidget *parent)
+GameWidget::GameWidget(QWidget *parent,Environment *e)
     : QWidget(parent)
     , ui(new Ui::GameWidget)
 {
+    _env=e;
     ui->setupUi(this);
 }
 

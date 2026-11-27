@@ -11,6 +11,7 @@
 /**
  * @brief The Environment class
  */
+#include "assets/entity/character.h"
 #include "assets/entity/entity.h"
 #include "assets/environment/tilenode.h"
 #include <vector>
@@ -20,15 +21,15 @@ using namespace std;
 class Environment
 {
 public:
-    explicit Environment(int x, int y);
+    explicit Environment(int x, int y,Player *p);
     void ReceiveCommand(char c);
-    bool IsDayTime();
+    bool *IsDayTime();
 private:
     int _x;
     int _y;
     int _nrOfMoves;
     bool _isDaytime;
-    Entity _player;
+    Player *_player;
     vector<Entity> _weapons;
     vector<Entity> _enemies;
     vector<vector<TileNode>>_gameGrid;

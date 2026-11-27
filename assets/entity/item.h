@@ -23,7 +23,7 @@ enum class ItemType{
     RingOfStrength
 };
 
-class Item : public Entity{
+class Item : virtual public Entity{
 private:
     ItemType _type;
     ItemCategory _category;
@@ -49,7 +49,7 @@ public:
     int getHealthMod() const { return _healthMod; }
     int getStrengthMod() const { return _strengthMod; }
 
-    void onRemove() override;
+    void onRemove();
 };
 
 #endif // ITEM_H
