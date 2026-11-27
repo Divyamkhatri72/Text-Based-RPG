@@ -10,9 +10,7 @@ using namespace std;
 struct TileNode{
     shared_ptr<Entity> prev;
     shared_ptr<Entity> next;
-
     shared_ptr<Entity> content;
-
 };
 
 class TileList
@@ -20,6 +18,7 @@ class TileList
 public:
     TileList();
     void Add(shared_ptr<Entity> e);
+    ~TileList();
 
 private:
     Entity _head;

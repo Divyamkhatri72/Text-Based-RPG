@@ -43,7 +43,8 @@ public:
 
 class Player : public Character{
 public:
-    Player(Race _race=Race::Human, string name="");
+    Player(Race race=Race::Human, string name="");
+    void SetDetails(Race race, string name);
     void onRemove();
     void pickUp(Item item);
     void move(int direction);

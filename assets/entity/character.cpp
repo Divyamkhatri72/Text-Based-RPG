@@ -91,6 +91,8 @@ void Character::onRemove()
 
 }
 
+
+
 void Character::defend(Character& enemy){
     mt19937 mt(time(0));
     int roll;
@@ -153,7 +155,7 @@ void Character::defeat(Player& player){
     player.victory(*this);
 }
 
-Player::Player(Race r,string n): Character(r)
+Player::Player(Race race, string n): Character(race)
 {
     _name=n;
 }
@@ -164,6 +166,11 @@ void Player::move(int direction){
         positionY++;
 
     }
+}
+void Player::SetDetails(Race race, string name)
+{
+    _race=race;
+    _name=name;
 }
 
 void Player::victory(Character& enemy){

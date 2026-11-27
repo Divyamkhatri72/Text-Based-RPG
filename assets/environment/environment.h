@@ -14,6 +14,7 @@
 #include "assets/entity/character.h"
 #include "assets/entity/entity.h"
 #include "assets/environment/tilelist.h"
+#include "qobject.h"
 
 #include <vector>
 
@@ -23,7 +24,7 @@ class Environment
 {
 public:
     explicit Environment(shared_ptr<Player> p=nullptr);
-    void ReceiveCommand(char c);
+    void ReceiveCommand(QChar c);
     bool *IsDayTime();
     void setGridSize(int x, int y);
     int Width();
@@ -37,6 +38,8 @@ private:
     shared_ptr<Player> _player;
     vector<TileList> _gameGrid;
 
+    vector<Item> _items;
+    vector<Character> _enemies;
 
     Entity _empty;
 };

@@ -7,6 +7,7 @@
  */
 #include "assets/environment/environment.h"
 #include "assets/environment/tilelist.h"
+#include "qobject.h"
 #include <random>
 
 
@@ -18,10 +19,10 @@ bool *Environment::IsDayTime(){
     return &_isDaytime;
 }
 
-void Environment::ReceiveCommand(char c)
+void Environment::ReceiveCommand(QChar c)
 {
     _nrOfMoves++;
-    switch(c){
+    switch(c.toLatin1()){
     case 'N':
         //go forward
         break;
@@ -65,38 +66,68 @@ void Environment::ReceiveCommand(char c)
 
 void Environment::setGridSize(int x, int y)
 {
-    random_device _rnd;
-    mt19937 e{static_cast<mt19937>(_rnd())};
+    mt19937 _randomEngine(std::time(nullptr));
     uniform_int_distribution<int> entityType{0, 2};
-    uniform_int_distribution<int> entityVariation{0, 5};
+    uniform_int_distribution<int> itemVariation{0, 5};
+    uniform_int_distribution<int> raceVariation{0, 5};
+
+
+    for(int i=0;i<x;i++)
+    {
+        Item newItem{static_cast<ItemType>(itemVariation(_randomEngine))};
+        _items.push_back(newItem);
+    }
+
+    for(int i=0;i<x;i++)
+    {
+        Character newEnemy{static_cast<Race>(raceVariation(_randomEngine))};
+        _enemies.push_back(newEnemy);
+    }
+
+
+    int addedEnemies{0};
+    int addedItems{0};
+
+
     for(int i=0;i<x; i++)
     {
         TileList t;
+
+        //
         for( int j=0;j<y;j++)
         {
-            /// add random enemies/ weapons on the field
-            ///
-                switch (entityType(e)) {
-                case 0:
-                    ///add empty node
-                    t.Add(make_shared<Entity>(_empty));
-                    break;
 
-                case 1:
-                    //add item
-                    t.Add(make_shared<Item>(*new Item(ItemType::Dagger)));
-                    break;
-
-                case 2:
-                    t.Add(make_shared<Character>(*new Character(Race::Hobbit,make_shared<bool>(_isDaytime))));
-                    break;
-
-                default:
-                    break;
+            switch (entityType(_randomEngine)) {
+            case 0:
+                t.Add(nullptr);
+                break;
+            case 1:
+                if(addedItems<_items.size())
+                {
+                    t.Add(make_shared<Item>(_items[addedItems]));
+                    addedItems++;
                 }
+                else
+                    t.Add(nullptr);
+                break;
+            case 2:
+                if(addedEnemies<_enemies.size())
+                {
+                    t.Add(make_shared<Character>(_enemies[addedEnemies]));
+                    addedEnemies++;
+                }
+                else
+                    t.Add(nullptr);
+                break;
+
+            default:
+                break;
+            }
+
         }
         _gameGrid.push_back(t);
     }
+
 
 }
 

@@ -30,15 +30,14 @@ BoardSetup::BoardSetup(QWidget *parent, GameWidget *g, shared_ptr<Environment> e
 
 void BoardSetup::Next(){
 
-    qDebug()<<"Clicking works";
-
+    int x=_xInput->text().toInt();
+    int y=_yInput->text().toInt();
     if(_xInput->text().toInt()>0 && _yInput->text().toInt()>0)
     {
-        _env->setGridSize(_xInput->text().toInt(),_yInput->text().toInt());
-        qDebug()<<_env->Width();
+        _env->setGridSize(x,y);
         _g->show();
         this->close();
-    }
+   }
 }
 
 void BoardSetup::closeEvent(QCloseEvent *event)

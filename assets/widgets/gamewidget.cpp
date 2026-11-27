@@ -24,7 +24,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
 {
     if( event->text()=='\r')
     {
-        _env->ReceiveCommand(_command->text().at(0).toLatin1());
+        _env->ReceiveCommand(_command->text().at(0));
         _command->setText("");
         ResetBoard();
     }

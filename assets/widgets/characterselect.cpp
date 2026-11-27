@@ -22,11 +22,9 @@ CharacterSelect::CharacterSelect(QWidget *parent,BoardSetup *b, shared_ptr<Playe
     _raceSelect->addItem("Orc");
 
     _raceSelect->move(10,130);
-
     _nextBttn=new QPushButton(this);
     connect(_nextBttn,&QPushButton::pressed,this,&CharacterSelect::Start);
     _nextBttn->move(10,160);
-
 
 
     ui->setupUi(this);
@@ -34,9 +32,9 @@ CharacterSelect::CharacterSelect(QWidget *parent,BoardSetup *b, shared_ptr<Playe
 
 void CharacterSelect::Start()
 {
+    _p->SetDetails(static_cast<Race>(_raceSelect->currentIndex()),_name->text().toStdString());
     _b->show();
     this->close();
-
 }
 
 void CharacterSelect::closeEvent(QCloseEvent *event)
