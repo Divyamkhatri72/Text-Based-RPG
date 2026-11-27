@@ -1,36 +1,43 @@
 #include "boardsetup.h"
-#include "gamewidget.h"
+#include "qevent.h"
 #include "ui_boardsetup.h"
 #include <QIntValidator>
 #include <QDebug>
 
-BoardSetup::BoardSetup(QWidget *parent, GameWidget *g)
+BoardSetup::BoardSetup(QWidget *parent,CharacterSelect *c)
     : QWidget(parent)
     , ui(new Ui::BoardSetup)
 {
-    game=g;
+    _ch=c;
 
-    xInput = new QLineEdit(this);
-    xInput->move(10,90);
-    xInput->setValidator(new QIntValidator(0,1000,this));
+    _xInput = new QLineEdit(this);
+    _xInput->move(10,90);
+    _xInput->setValidator(new QIntValidator(0,1000,this));
 
 
-    yInput = new QLineEdit(this);
-    yInput->setValidator(new QIntValidator(0,1000,this));
-    yInput->move(10,120);
+    _yInput = new QLineEdit(this);
+    _yInput->setValidator(new QIntValidator(0,1000,this));
+    _yInput->move(10,120);
 
-    startButton=new QPushButton(this);
-    connect(startButton,&QPushButton::pressed,this,&BoardSetup::StartGame);
-    startButton->move(10,160);
-    startButton->setText("Generate Board");
+    _nextBttn=new QPushButton(this);
+    connect(_nextBttn,&QPushButton::pressed,this,&BoardSetup::Next);
+    _nextBttn->move(12,160);
+    _nextBttn->setText("Next");
 
     ui->setupUi(this);
 }
 
-void BoardSetup::StartGame(){
-    qDebug()<<"Clicking works";
+void BoardSetup::Next(){
 
-    game->show();
+    qDebug()<<"Clicking works";
+    _ch->show();
+
+    this->close();
+}
+
+void BoardSetup::closeEvent(QCloseEvent *event)
+{
+    event->accept();
 }
 
 BoardSetup::~BoardSetup()

@@ -59,8 +59,10 @@ SOURCES       = ../../assets/entity/entity.cpp \
 		../../assets/environment/tilenode.cpp \
 		../../assets/widgets/boardsetup.cpp \
 		../../assets/widgets/gamewidget.cpp \
+		../../assets/widgets/characterselect.cpp \
 		../../main.cpp moc_boardsetup.cpp \
-		moc_gamewidget.cpp
+		moc_gamewidget.cpp \
+		moc_characterselect.cpp
 OBJECTS       = entity.o \
 		character.o \
 		item.o \
@@ -68,9 +70,11 @@ OBJECTS       = entity.o \
 		tilenode.o \
 		boardsetup.o \
 		gamewidget.o \
+		characterselect.o \
 		main.o \
 		moc_boardsetup.o \
-		moc_gamewidget.o
+		moc_gamewidget.o \
+		moc_characterselect.o
 DIST          = /home/uberus/Qt/6.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/uberus/Qt/6.11.2/gcc_64/mkspecs/common/unix.conf \
 		/home/uberus/Qt/6.11.2/gcc_64/mkspecs/common/linux.conf \
@@ -316,13 +320,15 @@ DIST          = /home/uberus/Qt/6.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../assets/environment/environment.h \
 		../../assets/environment/tilenode.h \
 		../../assets/widgets/boardsetup.h \
-		../../assets/widgets/gamewidget.h ../../assets/entity/entity.cpp \
+		../../assets/widgets/gamewidget.h \
+		../../assets/widgets/characterselect.h ../../assets/entity/entity.cpp \
 		../../assets/entity/character.cpp \
 		../../assets/entity/item.cpp \
 		../../assets/environment/environment.cpp \
 		../../assets/environment/tilenode.cpp \
 		../../assets/widgets/boardsetup.cpp \
 		../../assets/widgets/gamewidget.cpp \
+		../../assets/widgets/characterselect.cpp \
 		../../main.cpp
 QMAKE_TARGET  = Text-Based-RPG
 DESTDIR       = 
@@ -332,7 +338,7 @@ TARGET        = Text-Based-RPG
 first: all
 ####### Build rules
 
-Text-Based-RPG: ui_boardsetup.h ui_gamewidget.h $(OBJECTS)  
+Text-Based-RPG: ui_boardsetup.h ui_gamewidget.h ui_characterselect.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../Text-Based-RPG.pro /home/uberus/Qt/6.11.2/gcc_64/mkspecs/linux-g++/qmake.conf /home/uberus/Qt/6.11.2/gcc_64/mkspecs/features/spec_pre.prf \
@@ -837,9 +843,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/uberus/Qt/6.11.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../assets/entity/entity.h ../../assets/entity/character.h ../../assets/entity/item.h ../../assets/environment/environment.h ../../assets/environment/tilenode.h ../../assets/widgets/boardsetup.h ../../assets/widgets/gamewidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../assets/entity/entity.cpp ../../assets/entity/character.cpp ../../assets/entity/item.cpp ../../assets/environment/environment.cpp ../../assets/environment/tilenode.cpp ../../assets/widgets/boardsetup.cpp ../../assets/widgets/gamewidget.cpp ../../main.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../assets/widgets/boardsetup.ui ../../assets/widgets/gamewidget.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../assets/entity/entity.h ../../assets/entity/character.h ../../assets/entity/item.h ../../assets/environment/environment.h ../../assets/environment/tilenode.h ../../assets/widgets/boardsetup.h ../../assets/widgets/gamewidget.h ../../assets/widgets/characterselect.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../assets/entity/entity.cpp ../../assets/entity/character.cpp ../../assets/entity/item.cpp ../../assets/environment/environment.cpp ../../assets/environment/tilenode.cpp ../../assets/widgets/boardsetup.cpp ../../assets/widgets/gamewidget.cpp ../../assets/widgets/characterselect.cpp ../../main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../assets/widgets/boardsetup.ui ../../assets/widgets/gamewidget.ui ../../assets/widgets/characterselect.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -871,18 +877,18 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /home/uberus/Qt/6.11.2/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /home/uberus/Qt/6.11.2/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_boardsetup.cpp moc_gamewidget.cpp
+compiler_moc_header_make_all: moc_boardsetup.cpp moc_gamewidget.cpp moc_characterselect.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_boardsetup.cpp moc_gamewidget.cpp
+	-$(DEL_FILE) moc_boardsetup.cpp moc_gamewidget.cpp moc_characterselect.cpp
 moc_boardsetup.cpp: ../../assets/widgets/boardsetup.h \
+		../../assets/widgets/characterselect.h \
 		../../assets/widgets/gamewidget.h \
 		../../assets/environment/environment.h \
 		../../assets/entity/character.h \
 		../../assets/entity/entity.h \
 		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
@@ -936,6 +942,8 @@ moc_boardsetup.cpp: ../../assets/widgets/boardsetup.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
@@ -1080,16 +1088,34 @@ moc_boardsetup.cpp: ../../assets/widgets/boardsetup.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QPushButton \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QComboBox \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QPushButton \
 		moc_predefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/libexec/moc
 	/home/uberus/Qt/6.11.2/gcc_64/libexec/moc $(DEFINES) --include '/home/uberus/Git/Github Repositories/Text-Based-RPG/build/Desktop_Qt_6_11_2_Debug/moc_predefs.h' -I/home/uberus/Qt/6.11.2/gcc_64/mkspecs/linux-g++ -I'/home/uberus/Git/Github Repositories/Text-Based-RPG' -I/home/uberus/Qt/6.11.2/gcc_64/include -I/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets -I/home/uberus/Qt/6.11.2/gcc_64/include/QtGui -I/home/uberus/Qt/6.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../assets/widgets/boardsetup.h -o moc_boardsetup.cpp
@@ -1100,8 +1126,7 @@ moc_gamewidget.cpp: ../../assets/widgets/gamewidget.h \
 		../../assets/entity/entity.h \
 		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
@@ -1155,6 +1180,8 @@ moc_gamewidget.cpp: ../../assets/widgets/gamewidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
@@ -1299,17 +1326,266 @@ moc_gamewidget.cpp: ../../assets/widgets/gamewidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
 		moc_predefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/libexec/moc
 	/home/uberus/Qt/6.11.2/gcc_64/libexec/moc $(DEFINES) --include '/home/uberus/Git/Github Repositories/Text-Based-RPG/build/Desktop_Qt_6_11_2_Debug/moc_predefs.h' -I/home/uberus/Qt/6.11.2/gcc_64/mkspecs/linux-g++ -I'/home/uberus/Git/Github Repositories/Text-Based-RPG' -I/home/uberus/Qt/6.11.2/gcc_64/include -I/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets -I/home/uberus/Qt/6.11.2/gcc_64/include/QtGui -I/home/uberus/Qt/6.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../assets/widgets/gamewidget.h -o moc_gamewidget.cpp
+
+moc_characterselect.cpp: ../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtcoreglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtversionchecks.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtconfiginclude.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qconfig.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtconfigmacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtcoreexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qassert.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtnoop.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtypes.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtversion.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlogging.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qflags.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcompare_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qatomic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qyieldcpu.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qconstructormacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdarwinhelpers.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qexceptionhandling.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qforeach.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qttypetraits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfunctionpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmalloc.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qminmax.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20type_traits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qoverload.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qswap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtenvironmentvariables.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtresource.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qttranslation.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtgui-config.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcompare.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstdlibdetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcomparehelpers.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobject.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstring.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qchar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qpair.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qarraydataops.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qxptype_traits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q23type_traits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20functional.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20memory.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q17memory.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringfwd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlatin1stringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qanystringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringconverter.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringconverter_base.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlist.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiterator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20bit.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsimd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbasictimer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qeventloop.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdatastream.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfloat16.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmath.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtformat_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiterable.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qscopeguard.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbindingstorage.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmargins.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcheckedint_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q23utility.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20utility.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qaction.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qkeysequence.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qicon.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsize.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpixmap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qrect.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qpoint.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qcolor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qrgb.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qrgba64.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qimage.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpixelformat.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtransform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpolygon.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qregion.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qspan.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20iterator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qline.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qvariant.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdebug.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qshareddata_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qset.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qhash.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qalloc.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpalette.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qbrush.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfont.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qendian.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfontinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfontvariableaxis.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qcursor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qbitmap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qevent.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qurl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qeventpoint.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvector2d.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvectornd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpointingdevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputdevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qscreen.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QList \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QObject \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QRect \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QSize \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QSizeF \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/QTransform \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnativeinterface.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qscreen_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfuture.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmutex.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtsan_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qresultstore.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfuture_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qthreadpool.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qthread.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qrunnable.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qexception.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qpromise.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QComboBox \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		moc_predefs.h \
+		/home/uberus/Qt/6.11.2/gcc_64/libexec/moc
+	/home/uberus/Qt/6.11.2/gcc_64/libexec/moc $(DEFINES) --include '/home/uberus/Git/Github Repositories/Text-Based-RPG/build/Desktop_Qt_6_11_2_Debug/moc_predefs.h' -I/home/uberus/Qt/6.11.2/gcc_64/mkspecs/linux-g++ -I'/home/uberus/Git/Github Repositories/Text-Based-RPG' -I/home/uberus/Qt/6.11.2/gcc_64/include -I/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets -I/home/uberus/Qt/6.11.2/gcc_64/include/QtGui -I/home/uberus/Qt/6.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../assets/widgets/characterselect.h -o moc_characterselect.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_boardsetup.h ui_gamewidget.h
+compiler_uic_make_all: ui_boardsetup.h ui_gamewidget.h ui_characterselect.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_boardsetup.h ui_gamewidget.h
+	-$(DEL_FILE) ui_boardsetup.h ui_gamewidget.h ui_characterselect.h
 ui_boardsetup.h: ../../assets/widgets/boardsetup.ui \
 		/home/uberus/Qt/6.11.2/gcc_64/libexec/uic
 	/home/uberus/Qt/6.11.2/gcc_64/libexec/uic ../../assets/widgets/boardsetup.ui -o ui_boardsetup.h
@@ -1317,6 +1593,10 @@ ui_boardsetup.h: ../../assets/widgets/boardsetup.ui \
 ui_gamewidget.h: ../../assets/widgets/gamewidget.ui \
 		/home/uberus/Qt/6.11.2/gcc_64/libexec/uic
 	/home/uberus/Qt/6.11.2/gcc_64/libexec/uic ../../assets/widgets/gamewidget.ui -o ui_gamewidget.h
+
+ui_characterselect.h: ../../assets/widgets/characterselect.ui \
+		/home/uberus/Qt/6.11.2/gcc_64/libexec/uic
+	/home/uberus/Qt/6.11.2/gcc_64/libexec/uic ../../assets/widgets/characterselect.ui -o ui_characterselect.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1352,14 +1632,14 @@ tilenode.o: ../../assets/environment/tilenode.cpp ../../assets/environment/tilen
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tilenode.o ../../assets/environment/tilenode.cpp
 
 boardsetup.o: ../../assets/widgets/boardsetup.cpp ../../assets/widgets/boardsetup.h \
+		../../assets/widgets/characterselect.h \
 		../../assets/widgets/gamewidget.h \
 		../../assets/environment/environment.h \
 		../../assets/entity/character.h \
 		../../assets/entity/entity.h \
 		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
@@ -1413,6 +1693,8 @@ boardsetup.o: ../../assets/widgets/boardsetup.cpp ../../assets/widgets/boardsetu
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
@@ -1557,20 +1839,36 @@ boardsetup.o: ../../assets/widgets/boardsetup.cpp ../../assets/widgets/boardsetu
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QPushButton \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
-		ui_boardsetup.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/QIntValidator \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QComboBox \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvalidator.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QPushButton \
+		ui_boardsetup.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/QIntValidator \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o boardsetup.o ../../assets/widgets/boardsetup.cpp
 
@@ -1580,8 +1878,7 @@ gamewidget.o: ../../assets/widgets/gamewidget.cpp ../../assets/widgets/gamewidge
 		../../assets/entity/entity.h \
 		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
@@ -1635,6 +1932,8 @@ gamewidget.o: ../../assets/widgets/gamewidget.cpp ../../assets/widgets/gamewidge
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
@@ -1779,8 +2078,256 @@ gamewidget.o: ../../assets/widgets/gamewidget.cpp ../../assets/widgets/gamewidge
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
 		ui_gamewidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamewidget.o ../../assets/widgets/gamewidget.cpp
+
+characterselect.o: ../../assets/widgets/characterselect.cpp ../../assets/widgets/characterselect.h \
+		../../assets/widgets/gamewidget.h \
+		../../assets/environment/environment.h \
+		../../assets/entity/character.h \
+		../../assets/entity/entity.h \
+		../../assets/entity/item.h \
+		../../assets/environment/tilenode.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtcoreglobal.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtversionchecks.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtconfiginclude.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qconfig.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtconfigmacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtcoreexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qassert.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtnoop.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtypes.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtversion.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlogging.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qflags.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcompare_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qatomic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qyieldcpu.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qconstructormacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdarwinhelpers.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qexceptionhandling.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qforeach.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qttypetraits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfunctionpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmalloc.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qminmax.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20type_traits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qoverload.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qswap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtenvironmentvariables.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtresource.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qttranslation.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtgui-config.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcompare.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstdlibdetection.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcomparehelpers.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobject.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstring.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qchar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qpair.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qarraydataops.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qxptype_traits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q23type_traits.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20functional.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20memory.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q17memory.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringfwd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlatin1stringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qanystringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringconverter.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringconverter_base.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlist.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiterator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20bit.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsimd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbasictimer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qeventloop.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdatastream.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfloat16.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmath.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtformat_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiterable.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qscopeguard.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qbindingstorage.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmargins.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcheckedint_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q23utility.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20utility.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qaction.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qkeysequence.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qicon.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsize.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpixmap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qrect.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qpoint.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qcolor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qrgb.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qrgba64.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qimage.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpixelformat.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtransform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpolygon.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qregion.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qspan.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/q20iterator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qline.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qvariant.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qdebug.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qshareddata_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qset.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qhash.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qalloc.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpalette.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qbrush.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfont.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qendian.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfontinfo.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qfontvariableaxis.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qcursor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qbitmap.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qevent.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qurl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qeventpoint.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvector2d.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvectornd.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpointingdevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputdevice.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qscreen.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QList \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QObject \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QRect \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QSize \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/QSizeF \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/QTransform \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnativeinterface.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qscreen_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfuture.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qmutex.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qtsan_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qresultstore.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qfuture_impl.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qthreadpool.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qthread.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qrunnable.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qexception.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qpromise.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QComboBox \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		ui_characterselect.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o characterselect.o ../../assets/widgets/characterselect.cpp
 
 main.o: ../../main.cpp ../../assets/environment/environment.h \
 		../../assets/entity/character.h \
@@ -1788,9 +2335,9 @@ main.o: ../../main.cpp ../../assets/environment/environment.h \
 		../../assets/entity/item.h \
 		../../assets/environment/tilenode.h \
 		../../assets/widgets/boardsetup.h \
+		../../assets/widgets/characterselect.h \
 		../../assets/widgets/gamewidget.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiglobal.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qglobal.h \
@@ -1844,6 +2391,8 @@ main.o: ../../main.cpp ../../assets/environment/environment.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtguiexports.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qwidget.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qwindowdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qnamespace.h \
@@ -1988,16 +2537,34 @@ main.o: ../../main.cpp ../../assets/environment/environment.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qinputmethod.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qlocale.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qguiapplication_platform.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlineedit.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextcursor.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextdocument.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextformat.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qpen.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qtextoption.h \
-		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QPushButton \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QWidget \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QComboBox \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QPushButton \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/QApplication \
 		/home/uberus/Qt/6.11.2/gcc_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
@@ -2007,6 +2574,9 @@ moc_boardsetup.o: moc_boardsetup.cpp
 
 moc_gamewidget.o: moc_gamewidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gamewidget.o moc_gamewidget.cpp
+
+moc_characterselect.o: moc_characterselect.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_characterselect.o moc_characterselect.cpp
 
 ####### Install
 

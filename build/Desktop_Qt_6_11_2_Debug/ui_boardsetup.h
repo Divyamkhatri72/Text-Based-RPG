@@ -12,7 +12,6 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -21,21 +20,17 @@ class Ui_BoardSetup
 {
 public:
     QLabel *label;
-    QLineEdit *lineEdit;
 
     void setupUi(QWidget *BoardSetup)
     {
         if (BoardSetup->objectName().isEmpty())
             BoardSetup->setObjectName("BoardSetup");
-        BoardSetup->resize(136, 214);
+        BoardSetup->resize(132, 250);
         label = new QLabel(BoardSetup);
         label->setObjectName("label");
         label->setGeometry(QRect(10, 10, 111, 51));
         label->setAlignment(Qt::AlignmentFlag::AlignCenter);
         label->setWordWrap(true);
-        lineEdit = new QLineEdit(BoardSetup);
-        lineEdit->setObjectName("lineEdit");
-        lineEdit->setGeometry(QRect(152, 370, 491, 22));
 
         retranslateUi(BoardSetup);
 

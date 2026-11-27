@@ -1,5 +1,6 @@
 #include "assets/environment/environment.h"
 #include "assets/widgets/boardsetup.h"
+#include "assets/widgets/characterselect.h"
 #include "assets/widgets/gamewidget.h"
 #include <QApplication>
 
@@ -11,8 +12,11 @@ int main(int argc, char *argv[])
     Player p;
     Environment e{x,y,&p};
     QApplication a(argc, argv);
+
     GameWidget g{nullptr,&e};
-    BoardSetup b{nullptr,&g};
+    CharacterSelect c{nullptr,&g};
+    BoardSetup b{nullptr,&c};
+
     b.show();
     return QApplication::exec();
 }

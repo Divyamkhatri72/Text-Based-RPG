@@ -24,6 +24,8 @@ public:
     explicit Environment(int x, int y,Player *p);
     void ReceiveCommand(char c);
     bool *IsDayTime();
+    int X();
+    int Y();
 private:
     int _x;
     int _y;

@@ -73,3 +73,11 @@ void Environment::ReceiveCommand(char c)
         _nrOfMoves=0;
     }
 }
+
+int Environment::X(){
+    return _x;
+}
+
+int Environment::Y(){
+    return _y;
+}

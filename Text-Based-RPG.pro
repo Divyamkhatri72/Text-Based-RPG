@@ -14,6 +14,7 @@ SOURCES += \
     assets/environment/tilenode.cpp \
     assets/widgets/boardsetup.cpp \
     assets/widgets/gamewidget.cpp \
+    assets/widgets/characterselect.cpp \
     main.cpp \
 
 
@@ -25,11 +26,13 @@ HEADERS += \
     assets/environment/tilenode.h \
     assets/widgets/boardsetup.h \
     assets/widgets/gamewidget.h \
+    assets/widgets/characterselect.h
 
 
 FORMS += \
     assets/widgets/boardsetup.ui \
-    assets/widgets/gamewidget.ui
+    assets/widgets/gamewidget.ui \
+    assets/widgets/characterselect.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
