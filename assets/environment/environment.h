@@ -13,7 +13,7 @@
  */
 #include "assets/entity/character.h"
 #include "assets/entity/entity.h"
-#include "assets/environment/tilenode.h"
+#include <random>
 #include <vector>
 
 using namespace std;
@@ -21,8 +21,11 @@ using namespace std;
 class Environment
 {
 public:
-    explicit Environment(int x, int y,Player *p);
+    explicit Environment(int x, int y,Player *p=nullptr);
     void ReceiveCommand(char c);
+
+    void Rescale(int x,int y);
+
     bool *IsDayTime();
     int X();
     int Y();
@@ -32,9 +35,8 @@ private:
     int _nrOfMoves;
     bool _isDaytime;
     Player *_player;
-    vector<Entity> _weapons;
-    vector<Entity> _enemies;
-    vector<vector<TileNode>>_gameGrid;
+    vector<vector<Entity>> _gameGrid;
+    random_device _rnd;
 };
 
 #endif // ENVIRONMENT_H

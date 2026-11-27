@@ -37,11 +37,11 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
 
 void GameWidget::ResetBoard()
 {
-    for(int i=0;i<_env->X();i++)
+    for(int i=0;i<5;i++)
     {
-        for(int j=0;j<_env->Y();j++)
+        for(int j=0;j<5;j++)
         {
-            ///get each node from the index and create a small display widget around the player ( will tinker with the for conditions a tad later
+            _boardGrid->addWidget(new QFrame(),i,j,1,1,Qt::AlignJustify);
         }
     }
 }

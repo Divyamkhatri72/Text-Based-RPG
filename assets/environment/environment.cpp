@@ -11,22 +11,56 @@
 Environment::Environment(int x, int y,Player *p)
 {
     _player=p;
-    for(int i=0;i<x; i++)
-    {
-        vector<TileNode> row;
-        for( int j=0;j<y;j++)
-        {
-            /// add random enemies/ weapons on the field
-            ///
+    this->Rescale(x,y);
 
-
-        }
-        _gameGrid.push_back(row);
-    }
 
 }
 bool *Environment::IsDayTime(){
     return &_isDaytime;
+}
+
+void Environment::Rescale(int x, int y){
+
+    mt19937 e{_rnd()}; // or std::default_random_engine e{rd()};
+    uniform_int_distribution<int> entityType{0, 2};
+
+    uniform_int_distribution<int> entityVariation{0, 5};
+
+    Entity temp;
+
+    for(int i=0;i<x; i++)
+    {
+        vector<Entity> row;
+        row.reserve(y);
+        for( int j=0;j<y;j++)
+        {
+            /// add random enemies/ weapons on the field
+            ///
+            switch (entityType(e)) {
+            case 0:
+                ///add empty node
+                temp=*new Entity();
+                break;
+
+            case 1:
+                //add item
+                temp=*new Item(ItemType::Dagger);
+                break;
+
+            case 2:
+                temp=* new Character(Race::Hobbit,true);
+                break;
+
+            default:
+                break;
+            }
+
+            row.push_back(temp);
+        }
+        _gameGrid.push_back(row);
+    }
+    //_gameGrid[x/2][y/2]=&_player;
+
 }
 
 void Environment::ReceiveCommand(char c)

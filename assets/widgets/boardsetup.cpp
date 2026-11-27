@@ -4,10 +4,11 @@
 #include <QIntValidator>
 #include <QDebug>
 
-BoardSetup::BoardSetup(QWidget *parent,CharacterSelect *c)
+BoardSetup::BoardSetup(QWidget *parent,CharacterSelect *c,Environment *e)
     : QWidget(parent)
     , ui(new Ui::BoardSetup)
 {
+    _env=e;
     _ch=c;
 
     _xInput = new QLineEdit(this);
@@ -30,9 +31,13 @@ BoardSetup::BoardSetup(QWidget *parent,CharacterSelect *c)
 void BoardSetup::Next(){
 
     qDebug()<<"Clicking works";
-    _ch->show();
 
-    this->close();
+    if(_xInput->text().toInt()>0 && _yInput->text().toInt()>0)
+    {
+        _env->Rescale(_xInput->text().toInt(),_yInput->text().toInt());
+        _ch->show();
+        this->close();
+    }
 }
 
 void BoardSetup::closeEvent(QCloseEvent *event)

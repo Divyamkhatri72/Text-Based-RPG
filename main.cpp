@@ -7,15 +7,13 @@
 
 int main(int argc, char *argv[])
 {
-    int x {10};
-    int y{10};
     Player p;
-    Environment e{x,y,&p};
+    Environment e{3,3,&p};
     QApplication a(argc, argv);
 
     GameWidget g{nullptr,&e};
-    CharacterSelect c{nullptr,&g};
-    BoardSetup b{nullptr,&c};
+    CharacterSelect c{nullptr,&g,&p};
+    BoardSetup b{nullptr,&c,&e};
 
     b.show();
     return QApplication::exec();

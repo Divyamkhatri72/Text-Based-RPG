@@ -16,7 +16,7 @@ class CharacterSelect : public QWidget
 
 public:
     explicit CharacterSelect(QWidget *parent = nullptr);
-    CharacterSelect(QWidget *parent = nullptr,GameWidget *g=nullptr);
+    CharacterSelect(QWidget *parent = nullptr,GameWidget *g=nullptr, Player *p=nullptr);
     ~CharacterSelect();
 
 protected:
@@ -29,7 +29,12 @@ private:
 
     QComboBox *_raceSelect;
 
+    QLineEdit *_name;
+
     QPushButton *_nextBttn;
+
+    Player *_p;
+
 };
 
 #endif // CHARACTERSELECT_H
