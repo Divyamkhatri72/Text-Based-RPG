@@ -95,6 +95,8 @@ void GameWidget::ResetBoard()
      *      SET NEIGHBORS (player node x, player node y-1)
      */
 
+
+
     DrawNeighborsOf(0,0,0,2);
     DrawNeighborsOf(1,0,1,2);
     DrawNeighborsOf(2,0,2,2);

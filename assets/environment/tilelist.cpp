@@ -9,23 +9,27 @@ TileList::TileList()
 void TileList::Add(shared_ptr<Entity> e)
 {
     if(_list.empty())
-        _list.push_back({e,make_shared<Entity>(_head),make_shared<Entity>(_tail)});
+        _list.push_back({e,
+                         _barrier,
+                         _barrier,
+                         _barrier,
+                         _barrier});
     else
     {
-        _list.back().next=e;
-        _list.push_back({e,_list.back().content,make_shared<Entity>(_tail)});
+        _list.back().right=e;
+        _list.push_back({e,_list.back().content,_barrier});
     }
 }
 
 void TileList::OverrideAt(int i, shared_ptr<Entity> e)
 {
-    if(_list[i].prev!=make_shared<Entity>(_head))
+    if(_list[i].left!=_barrier)
     {
-        _list[i-1].next=e;
+        _list[i-1].right=e;
     }
-    if(_list[i].next!=make_shared<Entity>(_tail))
+    if(_list[i].right!=_barrier)
     {
-        _list[i+1].prev=e;
+        _list[i+1].right=e;
     }
 
     _list[i].content=e;
@@ -41,6 +45,19 @@ int TileList::GetIndexForEntity(shared_ptr<Entity> e)
 
 shared_ptr<Entity> TileList::GetEntityFromIndex(int i){
     return _list[i].content;
+}
+
+void TileList::BindBelow(TileList t)
+{
+    if(t._list.size()==this->_list.size())
+    {
+        for (int i=0;i<static_cast<int>(_list.size());i++)
+        {
+            this->_list[i].down=t._list[i].content;
+            t._list[i].up=this->_list[i].content;
+        }
+    }
+
 }
 
 TileList::~TileList()
