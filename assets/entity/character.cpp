@@ -153,6 +153,7 @@ void Character::attacking(Character& enemy){
 
 void Character::defeat(Player& player){
     player.victory(*this);
+    onRemove();
 }
 
 Player::Player(Race race, string n): Character(race)
@@ -161,12 +162,9 @@ Player::Player(Race race, string n): Character(race)
 }
 
 void Player::move(int direction){
-    switch(direction){
-    case Qt::Key_Up:
-        positionY++;
 
-    }
 }
+
 void Player::SetDetails(Race race, string name)
 {
     _race=race;
@@ -174,5 +172,13 @@ void Player::SetDetails(Race race, string name)
 }
 
 void Player::victory(Character& enemy){
+    int gold;
+    gold = enemy.defence;
+    this->_gold += gold;
 
+}
+
+void Player::pickUp(Item& item){
+    this->_inventory.push_back(item);
+    item.onRemove();
 }
