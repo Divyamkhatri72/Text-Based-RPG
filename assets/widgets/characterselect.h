@@ -3,6 +3,7 @@
 
 #include "assets/entity/character.h"
 #include "assets/widgets/boardsetup.h"
+#include "qlabel.h"
 #include "qpushbutton.h"
 #include <QWidget>
 #include <QComboBox>
@@ -27,6 +28,8 @@ protected:
 private:
     Ui::CharacterSelect *ui;
     BoardSetup * _b;
+
+    QLabel *_instruction;
     QComboBox *_raceSelect;
     QLineEdit *_name;
     QPushButton *_nextBttn;

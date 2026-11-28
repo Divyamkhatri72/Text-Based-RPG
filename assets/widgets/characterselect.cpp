@@ -9,24 +9,26 @@ CharacterSelect::CharacterSelect(QWidget *parent,BoardSetup *b, shared_ptr<Playe
     _p=p;
     _b=b;
 
-    _name=new QLineEdit(this);
+    _instruction=new QLabel(this);
+    _instruction->setText("What is your name?");
+    _instruction->move(10,60);
 
-    _name->move(10,100);
+    _name=new QLineEdit(this);
+    _name->move(10,60);
 
     _raceSelect=new QComboBox(this);
-
     _raceSelect->addItem(" Human");
     _raceSelect->addItem("Elf");
     _raceSelect->addItem("Dwarf");
     _raceSelect->addItem("Hobbit");
     _raceSelect->addItem("Orc");
+    _raceSelect->move(10,100);
 
-    _raceSelect->move(10,130);
     _nextBttn=new QPushButton(this);
     connect(_nextBttn,&QPushButton::pressed,this,&CharacterSelect::Start);
-    _nextBttn->move(10,160);
+    _nextBttn->move(10,120);
 
-
+    this->setFixedSize(120,160);
     ui->setupUi(this);
 }
 
@@ -47,4 +49,5 @@ CharacterSelect::~CharacterSelect()
     delete _raceSelect;
     delete _name;
     delete _nextBttn;
+    delete _instruction;
 }

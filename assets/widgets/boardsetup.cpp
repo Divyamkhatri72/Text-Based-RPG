@@ -25,6 +25,7 @@ BoardSetup::BoardSetup(QWidget *parent, GameWidget *g, shared_ptr<Environment> e
     _nextBttn->move(12,160);
     _nextBttn->setText("Next");
 
+    this->setFixedSize(130,190);
     ui->setupUi(this);
 }
 
