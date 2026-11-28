@@ -23,10 +23,12 @@ class Character : virtual public Entity{
 protected:
     Race _race;
     shared_ptr<bool> _isDay;
+    vector<Item> _inventory;
+
 private:
     int _Attack, _Defence, _Health, _Strength;
     float _AttackChance, _DefenceChance;
-    vector<Item> inventory;
+
 
 public:
     explicit Character(Race _race=Race::Human, shared_ptr<bool> isDay=nullptr);
@@ -46,7 +48,7 @@ public:
     Player(Race race=Race::Human, string name="");
     void SetDetails(Race race, string name);
     void onRemove();
-    void pickUp(Item item);
+    void pickUp(Item& item);
     void move(int direction);
     void victory(Character& enemy);
     void defeat();
