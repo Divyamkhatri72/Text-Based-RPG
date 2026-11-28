@@ -30,7 +30,6 @@ private:
     QComboBox *_raceSelect;
     QLineEdit *_name;
     QPushButton *_nextBttn;
-
     shared_ptr<Player> _p;
 
 };

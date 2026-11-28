@@ -35,6 +35,7 @@ void BoardSetup::Next(){
     if(_xInput->text().toInt()>0 && _yInput->text().toInt()>0)
     {
         _env->setGridSize(x,y);
+        //qDebug()<<_env->Height();
         _g->show();
         this->close();
    }

@@ -28,8 +28,14 @@ public:
     bool *IsDayTime();
     void setGridSize(int x, int y);
     int Width();
-    int Length();
+    int Height();
     void PlacePlayer(shared_ptr<Player> p);
+
+    int PlayerX();
+    int PlayerY();
+
+    shared_ptr<Entity> getTileEntity(int x, int y);
+
 private:
     int _width;
     int _height;

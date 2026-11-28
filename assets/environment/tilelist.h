@@ -18,6 +18,11 @@ class TileList
 public:
     TileList();
     void Add(shared_ptr<Entity> e);
+    int GetIndexForEntity(shared_ptr<Entity> e );
+    shared_ptr<Entity> GetEntityFromIndex(int i);
+    void OverrideAt(int i,shared_ptr<Entity> e );
+
+    int Length();
     ~TileList();
 
 private:

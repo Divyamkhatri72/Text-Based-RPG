@@ -27,6 +27,11 @@ private:
     QGridLayout *_boardGrid;
     QLineEdit *_command;
     shared_ptr<Environment> _env;
+    shared_ptr<Player> _p;
+
+
+    void DrawTileFor(int envX, int envY,int gridX, int gridY);
+    void DrawNeighborsOf(int envX, int envY,int gridInitX, int gridInitY);
 };
 
 #endif // GAMEWIDGET_H
