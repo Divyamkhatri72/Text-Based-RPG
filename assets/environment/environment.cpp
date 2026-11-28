@@ -82,7 +82,7 @@ void Environment::setGridSize(int x, int y)
 
     for(int i=0;i<x;i++)
     {
-        Character newEnemy{static_cast<Race>(raceVariation(_randomEngine))};
+        Character newEnemy{static_cast<Race>(raceVariation(_randomEngine)),make_shared<bool>(_isDaytime)};
         _enemies.push_back(newEnemy);
     }
 
@@ -120,7 +120,16 @@ void Environment::setGridSize(int x, int y)
                 break;
             }
         }
+        ///if there is a row already present
+        if(i>0)
+        {
+            ///Attach new row as below the current one
+            _gameGrid[i-1].BindBelow(t);
+
+        }
         _gameGrid.push_back(t);
+
+
     }
 
     _gameGrid[_width/2].OverrideAt(_height/2,_player);
