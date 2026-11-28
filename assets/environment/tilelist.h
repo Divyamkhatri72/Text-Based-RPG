@@ -7,21 +7,20 @@
 
 using namespace std;
 
-///structure of Nodes for the list
-/// A node is the address for an entity and the ones around it, serving as the position of the entity on the grid.
-/// The node itself only references the entity, but doesn't save the actual data of the entity inside it.
+///structure of
+
+/**
+ * @brief The TileNode class: Nodes for the list, serving as tiles on the board and arranged in a grid-like pattern.
+ * A tile node has an address to the entity that is "located on that tile" and addresses for the entities "located" to the left,right,in front of and behind the entity.
+ */
 struct TileNode{
     shared_ptr<Entity> content;
     shared_ptr<Entity> left;
     shared_ptr<Entity> right;
     shared_ptr<Entity> up;
     shared_ptr<Entity> down;
-
-
 };
 
-///
-///
 /**
  * @brief The TileList class : A 'list' of tile nodes. Considerable as a row in the environment's grid.
   */
@@ -68,11 +67,14 @@ public:
 
 private:
     /**
-     * @brief _barrier : Node which, when pointed to, marks that the node is at the edge of the grid. Is a pointer whose address will be in the environment class
+     * @brief _barrier : Node which, when pointed to, marks that the node is at the edge of the grid. Is a pointer whose address is in the environment class
      */
     shared_ptr<Entity> _barrier;
 
-    vector<TileNode> _list;/// the list of nodes on the row
+    /**
+     * @brief _list : The list of nodes on the row
+     */
+    vector<TileNode> _list;
 };
 
 #endif // TILELIST_H
