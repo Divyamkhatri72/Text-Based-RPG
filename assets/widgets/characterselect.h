@@ -29,7 +29,8 @@ private:
     Ui::CharacterSelect *ui;
     BoardSetup * _b;
 
-    QLabel *_instruction;
+    QLabel *_l1;
+    QLabel *_l2;
     QComboBox *_raceSelect;
     QLineEdit *_name;
     QPushButton *_nextBttn;

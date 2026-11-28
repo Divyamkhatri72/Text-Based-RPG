@@ -6,15 +6,23 @@ CharacterSelect::CharacterSelect(QWidget *parent,BoardSetup *b, shared_ptr<Playe
     : QWidget(parent)
     , ui(new Ui::CharacterSelect)
 {
+
     _p=p;
     _b=b;
 
-    _instruction=new QLabel(this);
-    _instruction->setText("What is your name?");
-    _instruction->move(10,60);
+    _l1=new QLabel(this);
+    _l1->setText("What is your name?");
+    _l1->move(10,10);
 
     _name=new QLineEdit(this);
-    _name->move(10,60);
+    _name->move(10,30);
+
+    _l2=new QLabel(this);
+    _l2->setText("...and of what blood is your flesh?");
+    _l2->setAlignment(Qt::AlignCenter);
+    _l2->setMaximumWidth(250);
+    _l2->setWordWrap(true);
+    _l2->move(10,60);
 
     _raceSelect=new QComboBox(this);
     _raceSelect->addItem(" Human");
@@ -26,9 +34,11 @@ CharacterSelect::CharacterSelect(QWidget *parent,BoardSetup *b, shared_ptr<Playe
 
     _nextBttn=new QPushButton(this);
     connect(_nextBttn,&QPushButton::pressed,this,&CharacterSelect::Start);
-    _nextBttn->move(10,120);
+    _nextBttn->setText("Proceed");
+    _nextBttn->move(10,150);
 
-    this->setFixedSize(120,160);
+    this->setFixedSize(150,210);
+
     ui->setupUi(this);
 }
 
@@ -49,5 +59,6 @@ CharacterSelect::~CharacterSelect()
     delete _raceSelect;
     delete _name;
     delete _nextBttn;
-    delete _instruction;
+    delete _l1;
+    delete _l2;
 }

@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -19,18 +18,12 @@ QT_BEGIN_NAMESPACE
 class Ui_BoardSetup
 {
 public:
-    QLabel *label;
 
     void setupUi(QWidget *BoardSetup)
     {
         if (BoardSetup->objectName().isEmpty())
             BoardSetup->setObjectName("BoardSetup");
-        BoardSetup->resize(132, 250);
-        label = new QLabel(BoardSetup);
-        label->setObjectName("label");
-        label->setGeometry(QRect(10, 10, 111, 51));
-        label->setAlignment(Qt::AlignmentFlag::AlignCenter);
-        label->setWordWrap(true);
+        BoardSetup->resize(16, 16);
 
         retranslateUi(BoardSetup);
 
@@ -40,7 +33,6 @@ public:
     void retranslateUi(QWidget *BoardSetup)
     {
         BoardSetup->setWindowTitle(QCoreApplication::translate("BoardSetup", "Form", nullptr));
-        label->setText(QCoreApplication::translate("BoardSetup", "Insert the width and height of the game board", nullptr));
     } // retranslateUi
 
 };

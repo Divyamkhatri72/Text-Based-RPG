@@ -76,7 +76,7 @@ void Character::updateModifier(){
     attackChance = _AttackChance;
     defenceChance = _DefenceChance;
 
-    for(const Item& item : inventory){
+    for(const Item& item : _inventory){
         attack   += item.getAttackMod();
         defence  += item.getDefenceMod();
         health   += item.getHealthMod();

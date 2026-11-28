@@ -14,8 +14,12 @@ GameWidget::GameWidget(QWidget *parent, shared_ptr<Environment> e, shared_ptr<Pl
     ResetBoard();
 
     _command=new QLineEdit(this);
-    _command->move(10,90);
+    _command->move(10,580);
+    _command->setMinimumWidth(580);
 
+
+
+    this->setFixedSize(600,650);
     ui->setupUi(this);
 }
 

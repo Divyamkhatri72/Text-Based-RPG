@@ -2,6 +2,7 @@
 #define BOARDSETUP_H
 
 #include "assets/widgets/gamewidget.h"
+#include "qlabel.h"
 #include "qlineedit.h"
 #include <QWidget>
 #include <QPushButton>
@@ -28,6 +29,7 @@ private:
     QLineEdit *_xInput;
     QLineEdit *_yInput;
     QPushButton *_nextBttn;
+    QLabel *_l;
     GameWidget * _g;
     shared_ptr<Environment> _env;
 };

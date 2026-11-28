@@ -6,32 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>132</width>
-    <height>250</height>
+    <width>16</width>
+    <height>16</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>111</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Insert the width and height of the game board</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignmentFlag::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

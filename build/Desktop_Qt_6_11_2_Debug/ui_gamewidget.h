@@ -23,7 +23,7 @@ public:
     {
         if (GameWidget->objectName().isEmpty())
             GameWidget->setObjectName("GameWidget");
-        GameWidget->resize(400, 300);
+        GameWidget->resize(16, 16);
 
         retranslateUi(GameWidget);
 

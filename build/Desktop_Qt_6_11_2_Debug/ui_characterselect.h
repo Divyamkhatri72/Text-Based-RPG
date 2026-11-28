@@ -23,7 +23,7 @@ public:
     {
         if (CharacterSelect->objectName().isEmpty())
             CharacterSelect->setObjectName("CharacterSelect");
-        CharacterSelect->resize(400, 300);
+        CharacterSelect->resize(16, 16);
 
         retranslateUi(CharacterSelect);
 
